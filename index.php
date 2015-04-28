@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html lang="">
-<!-- // $msg = array();
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $img = '';
-//     if (!isset($_POST['charname'])||empty($_POST['charname'])) {
-//         $msg[] = 'Bạn chưa nhập tên nhân vật';
-//     }
-//      if (!isset($_POST['pos'])||empty($_POST['pos'])) {
-//         $msg[] = 'Bạn chưa nhập vị trí VD : Top';
-//     } 
-//     if (empty($_FILES) || $img=='') {
-//       $msg[] = 'Bạn phải chọn hoặc tải 1 hình ảnh để làm ảnh nền.';  
-//     }
-//    } -->
+<?php
+include 'function/function.php';
+$func = new FunctionCode();
+ $msg = array();
+ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+     $img = '';
+     if (!isset($_POST['charname'])||empty($_POST['charname'])) {
+         $msg[] = 'Bạn chưa nhập tên nhân vật';
+     }
+      elseif (!isset($_POST['pos'])||empty($_POST['pos'])) {
+         $msg[] = 'Bạn chưa nhập vị trí VD : Top';
+    } 
+     elseif (!isset($_POST['img-src'])||empty($_POST['img-src'])) {
+       $msg[] = 'Bạn phải chọn hoặc tải 1 hình ảnh để làm ảnh nền.';  
+     }else{
+        $charname = $_POST['charname'];
+        $pos = $_POST['pos'];
+        $imgsrc = $_POST['img-src'];
+        $rank =$_POST['rank'];
+        $srcRank = 'img/rank/'.$rank;
+        $img = $func->createImage($srcRank,$imgsrc,$charname,$pos);
+     }
+}
 
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +49,7 @@
                 <div class="container">
                     <div class="center">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <form method="post" enctype="multipart/form-data" action="index.php" class="form-horizontal">
+                            <form method="post" action="index.php" class="form-horizontal">
                                 <fieldset>
                                     <!-- Form Name -->
                                     <legend>Tạo Timeline LOL</legend>
@@ -61,12 +72,12 @@
                                         <label class="col-md-4 control-label" for="rank">Rank</label>
                                         <div class="col-md-6">
                                             <select id="rank" name="rank" class="form-control">
-                                                <option value="dong">Đồng</option>
-                                                <option value="bac">Bạc</option>
-                                                <option value="vang">Vàng</option>
-                                                <option value="kimcuong">Bạch Kim</option>
-                                                <option value="thachdau">Kim Cương</option>
-                                                <option value="">Thách Đấu</option>
+                                                <option value="all.png">Tổng hợp</option>
+                                                <option value="silver.png">Bạc</option>
+                                                <option value="gold.png">Vàng</option>
+                                                <option value="bk.png">Bạch Kim</option>
+                                                <option value="diamond.png">Kim Cương</option>
+                                                <option value="war.png">Thách Đấu</option>
                                             </select>
                                         </div>
                                     </div>
@@ -86,6 +97,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
+                                <input type="hidden" name="img-src" value=""/>
                             </form>
                         </div>
                     </div>

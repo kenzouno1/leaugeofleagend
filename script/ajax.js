@@ -20,6 +20,8 @@ jQuery(document).ready(function($) {
 		width:'324',
 		height:'100',
 	});
+	$('.modal').modal('hide');
+	$('input[type=hidden]').val(dir);
 	});
 });
 

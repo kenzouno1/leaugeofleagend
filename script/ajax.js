@@ -12,6 +12,16 @@ jQuery(document).ready(function($) {
 		showimage(dir);
 	});
 
+	$('.cham-avt').on('click', '.cover', function(event) {
+		event.preventDefault();
+	var dir = $(this).data('dir');
+	$('.selectimg img').attr({
+		src: dir,
+		width:'324',
+		height:'100',
+	});
+	$('.selectimg p').text();
+	});
 });
 
 function searchChamp(name){
@@ -33,6 +43,5 @@ function showimage(dir){
 	.done(function(data_image) {
 			$('.cham-avt').html(data_image);
 	})
-
-	
 }
+

@@ -34,8 +34,8 @@ cursor: pointer;
 .modal-dialog{
 	width: 90%;
 }
-.cover img{
-	width: 851px;
-	height: 315px;
+ img.cover{
+	width: 90%;
+	height: 200px;
+	margin:10px 5%;
 }
-sad

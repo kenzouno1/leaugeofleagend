@@ -10,7 +10,7 @@ if (isset($_POST['txtsearch']) && !empty($_POST['txtsearch'])) {
     for ($i = 0; $i < count($arrName); $i++) {
         $name = $arrName[$i];
         if (strpos($name, $search) !== false) {
-          $dir = '../img/champ/'.$name;
+          $dir = 'img/champ/'.$name;
             $data .= '<div id="' . $arrName[$i] . '" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <img id="img-champ" data-dir='.$dir.'  src="img/champ/' . $arrName[$i] . '/avatar.png" alt="' . $arrName[$i] . '">
                     </div>';

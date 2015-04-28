@@ -20,7 +20,6 @@ jQuery(document).ready(function($) {
 		width:'324',
 		height:'100',
 	});
-	$('.selectimg p').text();
 	});
 });
 

@@ -26,7 +26,6 @@ margin-top: 20px;
 width: 95%;
 margin-right: 2.5%;
 cursor: pointer;
-height: 200px;
 }
 .search-form{ 
 	margin : 20px 0;
@@ -35,7 +34,7 @@ height: 200px;
 .modal-dialog{
 	width: 90%;
 }
- img.cover{
+ .cham-avt img.cover{
 	width: 90%;
 	height: 200px;
 	margin:10px 5%;

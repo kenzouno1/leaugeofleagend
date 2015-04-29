@@ -4,6 +4,7 @@
 include 'function/function.php';
 $func = new FunctionCode();
  $msg = array();
+ $success = '';
  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      $img = '';
      if (!isset($_POST['charname'])||empty($_POST['charname'])) {
@@ -20,8 +21,9 @@ $func = new FunctionCode();
         $imgsrc = $_POST['img-src'];
         $rank =$_POST['rank'];
         $srcRank = 'img/rank/'.$rank;
-        $img = $func->createImage($srcRank,$imgsrc,$charname,$pos);
-        echo '<img src="'.$img.'">';
+        $success = $func->createImage($srcRank,$imgsrc,$charname,$pos);
+
+    
      }
 }
 
@@ -100,8 +102,15 @@ $func = new FunctionCode();
                                 </fieldset>
                                 <input type="hidden" name="img-src" value=""/>
                             </form>
+                           
                         </div>
+                   
                     </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <?php if ($success !='') {
+                                        echo '<img src="'.$success.'" class="imgsuccess">';
+                                } ?>
+                    </div> 
                 </div>
             </div>
         </div>

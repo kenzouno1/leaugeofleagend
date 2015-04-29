@@ -21,6 +21,7 @@ $func = new FunctionCode();
         $rank =$_POST['rank'];
         $srcRank = 'img/rank/'.$rank;
         $img = $func->createImage($srcRank,$imgsrc,$charname,$pos);
+        echo '<img src="'.$img.'">';
      }
 }
 

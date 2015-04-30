@@ -1,39 +1,5 @@
 <!DOCTYPE html>
 <html lang="">
-<?php
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSession.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRedirectLoginHelper.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequest.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookResponse.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSDKException.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequestException.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookAuthorizationException.php' );
-// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/GraphObject.php' );
-
-// use Facebook\FacebookSession;
-// use Facebook\FacebookRedirectLoginHelper;
-// use Facebook\FacebookRequest;
-// use Facebook\FacebookResponse;
-// use Facebook\FacebookSDKException;
-// use Facebook\FacebookRequestException;
-// use Facebook\FacebookAuthorizationException;
-// use Facebook\GraphObject;
-
-// FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-// $helper = new FacebookRedirectLoginHelper('https://www.facebook.com/timelinelol/app_466277736881326');
-// $loginUrl = $helper->getLoginUrl();
-// $helper = new FacebookCanvasLoginHelper();
-// try {
-//   $session = $helper->getSession();
-// } catch(FacebookRequestException $ex) {
-//   // When Facebook returns an error
-// } catch(\Exception $ex) {
-//   // When validation fails or other local issues
-// }
-// if ($session) {
-//   echo 'fuck';
-// }
-?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,6 +16,52 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 </head>
+<?php
+session_start();
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSession.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRedirectLoginHelper.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequest.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookResponse.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSDKException.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequestException.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookAuthorizationException.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/GraphObject.php' );
+
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\FacebookResponse;
+use Facebook\FacebookSDKException;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookAuthorizationException;
+use Facebook\GraphObject;
+
+FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
+$helper = new FacebookRedirectLoginHelper('https://www.facebook.com/timelinelol/app_466277736881326');
+
+try {
+  $session = $helper->getSessionFromRedirect();
+} catch(FacebookRequestException $ex) {
+  // When Facebook returns an error
+} catch(Exception $ex) {
+  // When validation fails or other local issues
+}
+if ( !isset( $session ) ) {
+     echo '<a class="btn btn-primary" href="' . $helper->getLoginUrl() . '">Login</a>';
+
+} else {
+  // graph api request for user data
+  $request = new FacebookRequest( $session, 'GET', '/me' );
+  $response = $request->execute();
+  // get response
+  $graphObject = $response->getGraphObject();
+
+  // print data
+  echo  print_r( $graphObject, 1 );
+ 
+
+?>
+
 
 <body>
     <div class="container">
@@ -112,17 +124,14 @@
                         </div>
                    
                     </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 success">
-                               
-            
-                            
-                            
-                    </div> 
+                 
                 </div>
             </div>
         </div>
     </div>
-    <?php include 'template/modal.php';?>
+    <?php include 'template/modal.php';
+    }
+    ?>
     <!-- jQuery -->
     <script src="script/jquery-2.1.3.min.js"></script>
     <!-- Bootstrap JavaScript -->

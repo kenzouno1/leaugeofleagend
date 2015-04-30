@@ -45,7 +45,7 @@ use Facebook\FacebookPageTabHelper;
 $redirect = 'https://www.facebook.com/timelinelol/app_466277736881326';
 
 FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookRedirectLoginHelper(  );
+$helper = new FacebookRedirectLoginHelper(  $redirect);
 $pageHelper = new FacebookPageTabHelper();
 
 // get session from the page

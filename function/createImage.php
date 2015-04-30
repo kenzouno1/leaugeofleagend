@@ -44,16 +44,11 @@
 			mkdir('images', 0777, true);
 		}
 		$filename= md5(uniqid(mt_rand(), true)).'.jpg';
-		$imagesname = 'images/'.$filename;
+		$imagesname = '../images/'.$filename;
 		imagejpeg($images,$imagesname,100);
 		unlink($targetfile);
-		$html .='<img src="'.$imagesname.'"/>';
+		$html .='<img class="imgsuccess" src="images/'.$filename.'"/>';
      }
 }
 echo $html;
-
-
-
-
-
 ?>

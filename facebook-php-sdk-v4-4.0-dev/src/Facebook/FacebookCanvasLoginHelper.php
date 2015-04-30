@@ -22,7 +22,7 @@
  *
  */
 namespace Facebook;
-
+include 'FacebookSignedRequestFromInputHelper.php';
 /**
  * Class FacebookCanvasLoginHelper
  * @package Facebook

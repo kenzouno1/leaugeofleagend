@@ -68,21 +68,25 @@ try {
 }
 
 if ( !isset( $session ) ) {
-     $loginUrl = $helper->getLoginUrl();
-    echo '<a href="' . $loginUrl . '">Login</a>';
-} else {
-    $_SESSION['access_token'] = $session->getToken();
   $permissions = array(
-    'email',
+
     'user_birthday'
 );
-  // Retrieve User’s Profile Information
+  $loginUrl = $helper->getLoginUrl( $permissions );
+    echo '<a href="' . $loginUrl . '">Login</a>';
+   
+} else {
+
+ // Retrieve & store the access token in a session.
+    $_SESSION['access_token'] = $session->getToken();
+// Retrieve User’s Profile Information
 $request = ( new FacebookRequest( $session, 'GET', '/me' ) )->execute();
 
 // Get response as an array
 $user = $request->getGraphObject()->asArray();
 
 print_r( $user );
+
 ?>
 
 

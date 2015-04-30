@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html lang="">
 <?php
-include 'function/function.php';
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSession.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRedirectLoginHelper.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequest.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookResponse.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSDKException.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequestException.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookAuthorizationException.php' );
+// require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/GraphObject.php' );
 
+// use Facebook\FacebookSession;
+// use Facebook\FacebookRedirectLoginHelper;
+// use Facebook\FacebookRequest;
+// use Facebook\FacebookResponse;
+// use Facebook\FacebookSDKException;
+// use Facebook\FacebookRequestException;
+// use Facebook\FacebookAuthorizationException;
+// use Facebook\GraphObject;
 
+// FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
+// $helper = new FacebookRedirectLoginHelper('https://www.facebook.com/timelinelol/app_466277736881326');
+// $loginUrl = $helper->getLoginUrl();
+// $helper = new FacebookCanvasLoginHelper();
+// try {
+//   $session = $helper->getSession();
+// } catch(FacebookRequestException $ex) {
+//   // When Facebook returns an error
+// } catch(\Exception $ex) {
+//   // When validation fails or other local issues
+// }
+// if ($session) {
+//   echo 'fuck';
+// }
 ?>
 <head>
     <meta charset="utf-8">

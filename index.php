@@ -3,29 +3,6 @@
 <?php
 include 'function/function.php';
 $func = new FunctionCode();
- $msg = array();
- $success = '';
- if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-     $img = '';
-     if (!isset($_POST['charname'])||empty($_POST['charname'])) {
-         $msg[] = 'Bạn chưa nhập tên nhân vật';
-     }
-      elseif (!isset($_POST['pos'])||empty($_POST['pos'])) {
-         $msg[] = 'Bạn chưa nhập vị trí VD : Top';
-    } 
-     elseif (!isset($_POST['img-src'])||empty($_POST['img-src'])) {
-       $msg[] = 'Bạn phải chọn hoặc tải 1 hình ảnh để làm ảnh nền.';  
-     }else{
-        $charname = $_POST['charname'];
-        $pos = $_POST['pos'];
-        $imgsrc = $_POST['img-src'];
-        $rank =$_POST['rank'];
-        $srcRank = 'img/rank/'.$rank;
-        $success = $func->createImage($srcRank,$imgsrc,$charname,$pos);
-
-    
-     }
-}
 
 ?>
 <head>
@@ -52,7 +29,7 @@ $func = new FunctionCode();
                 <div class="container">
                     <div class="center">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <form method="post" action="index.php" class="form-horizontal">
+                            <form>
                                 <fieldset>
                                     <!-- Form Name -->
                                     <legend>Tạo Timeline LOL</legend>
@@ -96,7 +73,7 @@ $func = new FunctionCode();
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for=""></label>
                                         <div class="col-md-4">
-                                            <button id="submit" type="submit" name="create" class="btn btn-primary">Tạo Cover</button>
+                                            <button id="submit" type="button" name="create" class="btn btn-primary">Tạo Cover</button>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -107,9 +84,9 @@ $func = new FunctionCode();
                    
                     </div>
                       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <?php if ($success !='') {
-                                        echo '<img src="'.$success.'" class="imgsuccess">';
-                                } ?>
+                               
+                             '<img class="imgsuccess">';
+                            
                     </div> 
                 </div>
             </div>

@@ -11,7 +11,6 @@ jQuery(document).ready(function($) {
 		var dir = $(this).data('dir');
 		showimage(dir);
 	});
-
 	$('.cham-avt').on('click', '.cover', function(event) {
 		event.preventDefault();
 	var dir = $(this).data('dir');
@@ -22,6 +21,14 @@ jQuery(document).ready(function($) {
 	});
 	$('.modal').modal('hide');
 	$('input[type=hidden]').val(dir);
+	});
+
+	$('#submit').click(function(event) {
+		var charname = $('#charname').val();
+		var pos = $('#pos').val();
+		var rank = $('#rank').val();
+		var img = $('input[type=hidden]').val();
+		createImage(charname,pos,rank,img);
 	});
 });
 
@@ -43,6 +50,22 @@ function showimage(dir){
 	})
 	.done(function(data_image) {
 			$('.cham-avt').html(data_image);
-	})
+});
 }
 
+function createImage(charname,position,rank,img){
+$.ajax({
+	url: 'function/createImage.php',
+	type: 'POST',
+	data: {
+			'charname':charname,
+			'pos':position,
+			'rank':rank,
+			'champ' :img	
+		},
+})
+.done(function(data_html) {
+	console.log(data_html);
+});
+
+}

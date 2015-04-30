@@ -69,7 +69,7 @@ try {
 
 if ( !isset( $session ) ) {
   $permissions = array(
-
+    'email',
     'user_birthday'
 );
   $loginUrl = $helper->getLoginUrl( $permissions );

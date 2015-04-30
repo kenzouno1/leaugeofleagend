@@ -65,8 +65,8 @@ $.ajax({
 		},
 })
 .done(function(data_html) {
-	console.log(data_html);
-$('.success').html(data_html);
+$('.cham-avt').html(data_html);
+$('.modal').modal('show');
 });
 
 }

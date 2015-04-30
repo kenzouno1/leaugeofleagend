@@ -47,7 +47,7 @@
 		$imagesname = '../images/'.$filename;
 		imagejpeg($images,$imagesname,100);
 		unlink($targetfile);
-		$html .='<img class="imgsuccess" src="images/'.$filename.'"/>';
+		$html .='<img class="imgsuccess" src="http://cover2015.herokuapp.com/images/'.$filename.'"/>';
      }
 }
 echo $html;

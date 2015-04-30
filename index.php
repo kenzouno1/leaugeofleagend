@@ -45,7 +45,7 @@ use Facebook\FacebookPageTabHelper;
 $redirect = 'https://www.facebook.com/timelinelol/app_466277736881326';
 
 FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookRedirectLoginHelper(  $redirect);
+$helper = new FacebookRedirectLoginHelper(  );
 $pageHelper = new FacebookPageTabHelper();
 
 // get session from the page
@@ -77,11 +77,32 @@ if ( !isset( $session ) ) {
   
   // print profile data
   echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
-  
-  // print logout url, target = _top to break out of page frame
-header( 'Location: ' . SITE_URL );  
-}
-
+// see if the viewer has liked the page
+if ( !$pageHelper->isLiked() ) {
+  echo '<h1>Please Like the page to continue</h1>';
+} else {
+// see if we have a session
+  if ( isset( $session ) ) {
+    
+    // show logged-in user id
+    echo 'User Id: ' . $pageHelper->getUserId();
+    
+    // graph api request for user data
+    $request = new FacebookRequest( $session, 'GET', '/me' );
+    $response = $request->execute();
+    // get response
+    $graphObject = $response->getGraphObject()->asArray();
+    
+    // print profile data
+    echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+    
+    // print logout url, target = _top to break out of page frame
+    echo '<a href="' . $helper->getLogoutUrl( $session, 'http://sites.local/php-sdk-4.0/redirect.php' ) . '" target="_top">Logout</a>';
+    
+  } else {
+    // show login url, target = _top to break out of page frame
+    echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
+  }}
 
 ?>
 
@@ -152,15 +173,17 @@ header( 'Location: ' . SITE_URL );
             </div>
         </div>
     </div>
-    <?php include 'template/modal.php';
-    }
-    ?>
-    <!-- jQuery -->
+        <!-- jQuery -->
     <script src="script/jquery-2.1.3.min.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="script/bootstrap.min.js"></script>
     <script src="script/script.js"></script>
     <script src="script/ajax.js"></script>
-</body>
+     <?php include 'template/modal.php';
+    }
+    ?>
+    </body>
 
 </html>
+   
+

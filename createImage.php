@@ -36,7 +36,7 @@
 		imagedestroy($logoImage);
 		$images =imagecreatefromjpeg($targetfile);;	
 		$color = imagecolorallocate($images,255,204,51); 
-		$font_file = 'function/helvetica.ttf';
+		$font_file = 'helvetica.ttf';
 		imagettftext($images,17,0,172,72,$color,$font_file,$charname);
 		imagettftext($images,17,0,176,122,$color,$font_file,$pos);
 		imagettftext($images,10,0,30,300,$color,$font_file,'FB.COM/TIMELINELOL');

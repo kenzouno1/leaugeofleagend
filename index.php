@@ -57,9 +57,7 @@ if ( !isset( $session ) ) {
   $graphObject = $response->getGraphObject();
 
   // print data
-  echo  print_r( $graphObject, 1 );
- 
-
+    var_dump( $graphObject);
 ?>
 
 

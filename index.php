@@ -2,7 +2,7 @@
 <html lang="">
 <?php
 include 'function/function.php';
-$func = new FunctionCode();
+
 
 ?>
 <head>

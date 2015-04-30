@@ -8,7 +8,7 @@ $arrName   = $func->getFodel($imagesDir);
 if (isset($_POST['txtsearch']) && !empty($_POST['txtsearch'])) {
     $search = $_POST['txtsearch'];
     for ($i = 0; $i < count($arrName); $i++) {
-        $name = $arrName[$i];
+        $name = strtolower($arrName[$i]);
         if (strpos($name, $search) !== false) {
           $dir = 'img/champ/'.$name;
             $data .= '<div id="' . $arrName[$i] . '" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">

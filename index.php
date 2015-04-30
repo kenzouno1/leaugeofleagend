@@ -19,7 +19,7 @@
 <?php
 session_start();
 require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSession.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRedirectLoginHelper.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookCanvasLoginHelper.php' );
 require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequest.php' );
 require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookResponse.php' );
 require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSDKException.php' );
@@ -28,7 +28,7 @@ require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookAuthorizationExc
 require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/GraphObject.php' );
 
 use Facebook\FacebookSession;
-use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookCanvasLoginHelper;
 use Facebook\FacebookRequest;
 use Facebook\FacebookResponse;
 use Facebook\FacebookSDKException;
@@ -37,27 +37,25 @@ use Facebook\FacebookAuthorizationException;
 use Facebook\GraphObject;
 
 FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookRedirectLoginHelper('https://www.facebook.com/timelinelol/app_466277736881326');
-
+$helper = new FacebookCanvasLoginHelper();
 try {
-  $session = $helper->getSessionFromRedirect();
-} catch(FacebookRequestException $ex) {
-  // When Facebook returns an error
-} catch(Exception $ex) {
-  // When validation fails or other local issues
+  $session = $helper->getSession();
+} catch (FacebookRequestException $ex) {
+    // When Facebook returns an error
+} catch (\Exception $ex) {
+    // When validation fails or other local issues  
 }
+
 if ( !isset( $session ) ) {
-     echo '<a class="btn btn-primary" href="' . $helper->getLoginUrl() . '">Login</a>';
+  
 
 } else {
-  // graph api request for user data
-  $request = new FacebookRequest( $session, 'GET', '/me' );
-  $response = $request->execute();
-  // get response
-  $graphObject = $response->getGraphObject();
+$me = (new FacebookRequest(
+  $session, 'GET', '/me'
+))->execute()->getGraphObject(GraphUser::className());
 
   // print data
-    var_dump( $graphObject);
+    var_dump( $me);
 ?>
 
 

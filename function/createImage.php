@@ -16,8 +16,10 @@
         $charname = $_POST['charname'];
         $pos = $_POST['pos'];
         $imgsrc = '../'.$_POST['champ'];
+        $html.=$imgsrc."<br/>";
         $rank =$_POST['rank'];
         $srcRank = '../img/rank/'.$rank;
+     	$html.=$srcRank."<br/>";
         $targetfile = '../temp/'.md5(uniqid(mt_rand(), true)).".jpg"; 
 		$photo = imagecreatefromjpeg($imgsrc); 
 		$fotoW = imagesx($photo); 

@@ -15,10 +15,10 @@
      }else{
         $charname = $_POST['charname'];
         $pos = $_POST['pos'];
-        $imgsrc = '../'.$_POST['champ'];
+        $imgsrc = 'http://cover2015.herokuapp.com/'.$_POST['champ'];
         $rank =$_POST['rank'];
-        $srcRank = '../img/rank/'.$rank;
-        $targetfile = '../temp/'.md5(uniqid(mt_rand(), true)).".jpg"; 
+        $srcRank = 'http://cover2015.herokuapp.com/img/rank/'.$rank;
+        $targetfile = 'http://cover2015.herokuapp.com/temp/'.md5(uniqid(mt_rand(), true)).".jpg"; 
 		$photo = imagecreatefromjpeg($imgsrc); 
 		$fotoW = imagesx($photo); 
 		$fotoH = imagesy($photo); 
@@ -44,10 +44,10 @@
 			mkdir('images', 0777, true);
 		}
 		$filename= md5(uniqid(mt_rand(), true)).'.jpg';
-		$imagesname = '../images/'.$filename;
+		$imagesname = 'http://cover2015.herokuapp.com/images/'.$filename;
 		imagejpeg($images,$imagesname,100);
 		unlink($targetfile);
-		$html .='<img class="imgsuccess" src="http://cover2015.herokuapp.com/images/'.$filename.'"/>';
+		$html .='<img class="imgsuccess" src="images/'.$filename.'"/>';
      }
 }
 echo $html;

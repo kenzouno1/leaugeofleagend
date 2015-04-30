@@ -65,7 +65,7 @@ $.ajax({
 		},
 })
 .done(function(data_html) {
-	console.log(data_html);
+$('.success').html(data_html);
 });
 
 }

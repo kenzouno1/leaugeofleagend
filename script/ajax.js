@@ -55,7 +55,7 @@ function showimage(dir){
 
 function createImage(charname,position,rank,img){
 $.ajax({
-	url: 'function/createImage.php',
+	url: 'createImage.php',
 	type: 'POST',
 	data: {
 			'charname':charname,

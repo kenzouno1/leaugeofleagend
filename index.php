@@ -45,22 +45,44 @@ use Facebook\FacebookPageTabHelper;
 
 
 FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookCanvasLoginHelper("https://www.facebook.com/timelinelol/app_466277736881326");
+$helper = new FacebookRedirectLoginHelper( 'https://www.facebook.com/timelinelol/app_466277736881326' );
 $pageHelper = new FacebookPageTabHelper();
 $session = $pageHelper->getSession();
-echo '<p>You are currently viewing page: '. $pageHelper->getPageId() . '</p>';
+// Authorize the user.
+try {
+    if ( isset( $_SESSION['access_token'] ) ) {
+        // Check if an access token has already been set.
+        $session = new FacebookSession( $_SESSION['access_token'] );
+    } else {
+        // Get access token from the code parameter in the URL.
+        $session = $helper->getSessionFromRedirect();
+    }
+} catch( FacebookRequestException $ex ) {
 
+    // When Facebook returns an error.
+    print_r( $ex );
+} catch( \Exception $ex ) {
+
+    // When validation fails or other local issues.
+    print_r( $ex );
+}
 
 if ( !isset( $session ) ) {
-  
-
+     $loginUrl = $helper->getLoginUrl();
+    echo '<a href="' . $loginUrl . '">Login</a>';
 } else {
-$me = (new FacebookRequest(
-  $session, 'GET', '/me'
-))->execute()->getGraphObject(GraphUser::className());
+    $_SESSION['access_token'] = $session->getToken();
+  $permissions = array(
+    'email',
+    'user_birthday'
+);
+  // Retrieve User’s Profile Information
+$request = ( new FacebookRequest( $session, 'GET', '/me' ) )->execute();
 
-  // print data
-    var_dump( $me);
+// Get response as an array
+$user = $request->getGraphObject()->asArray();
+
+print_r( $user );
 ?>
 
 

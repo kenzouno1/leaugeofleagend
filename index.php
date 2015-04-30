@@ -42,50 +42,46 @@ use Facebook\GraphSessionInfo;
 // these two classes required for canvas and tab apps
 use Facebook\FacebookCanvasLoginHelper;
 use Facebook\FacebookPageTabHelper;
-
+$redirect = 'https://www.facebook.com/timelinelol/app_466277736881326';
 
 FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookRedirectLoginHelper( 'https://www.facebook.com/timelinelol/app_466277736881326' );
+$helper = new FacebookRedirectLoginHelper(  $redirect);
 $pageHelper = new FacebookPageTabHelper();
+
+// get session from the page
 $session = $pageHelper->getSession();
-// Authorize the user.
-try {
-    if ( isset( $_SESSION['access_token'] ) ) {
-        // Check if an access token has already been set.
-        $session = new FacebookSession( $_SESSION['access_token'] );
-    } else {
-        // Get access token from the code parameter in the URL.
-        $session = $helper->getSessionFromRedirect();
-    }
-} catch( FacebookRequestException $ex ) {
 
-    // When Facebook returns an error.
-    print_r( $ex );
-} catch( \Exception $ex ) {
+// get page_id
+echo '<p>You are currently viewing page: '. $pageHelper->getPageId() . '</p>';
 
-    // When validation fails or other local issues.
-    print_r( $ex );
+// get like status - use for likegates
+echo '<p>You have '. ( $pageHelper->isLiked() ? 'LIKED' : 'NOT liked' ) . ' this page</p>';
+
+// get admin status
+echo '<p>You are '. ( $pageHelper->isAdmin() ? 'an ADMIN' : 'NOT an ADMIN' ) . '</p>';
+
+// see if we have a session
+if ( !isset( $session ) ) {
+  echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
+ 
+  
+} else {
+  // show logged-in user id
+  echo 'User Id: ' . $pageHelper->getUserId();
+  
+  // graph api request for user data
+  $request = new FacebookRequest( $session, 'GET', '/me' );
+  $response = $request->execute();
+  // get response
+  $graphObject = $response->getGraphObject()->asArray();
+  
+  // print profile data
+  echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+  
+  // print logout url, target = _top to break out of page frame
+header( 'Location: ' . SITE_URL );  
 }
 
-if ( !isset( $session ) ) {
-  $permissions = array(
-    'email',
-    'user_birthday'
-);
-  $loginUrl = $helper->getLoginUrl( $permissions );
-    echo '<a href="' . $loginUrl . '">Login</a>';
-   
-} else {
-
- // Retrieve & store the access token in a session.
-    $_SESSION['access_token'] = $session->getToken();
-// Retrieve User’s Profile Information
-$request = ( new FacebookRequest( $session, 'GET', '/me' ) )->execute();
-
-// Get response as an array
-$user = $request->getGraphObject()->asArray();
-
-print_r( $user );
 
 ?>
 

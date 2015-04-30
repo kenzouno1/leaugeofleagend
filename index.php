@@ -17,80 +17,78 @@
         <![endif]-->
 </head>
 <?php
-session_start();
-require_once( 'facebook-php-sdk-v4-4.0-dev/autoload.php' );
+// session_start();
+// require_once( 'facebook-php-sdk-v4-4.0-dev/autoload.php' );
 
-use Facebook\HttpClients\FacebookHttpable;
-use Facebook\HttpClients\FacebookCurl;
-use Facebook\HttpClients\FacebookCurlHttpClient;
+// use Facebook\HttpClients\FacebookHttpable;
+// use Facebook\HttpClients\FacebookCurl;
+// use Facebook\HttpClients\FacebookCurlHttpClient;
 
-use Facebook\Entities\AccessToken;
-use Facebook\Entities\SignedRequest;
+// use Facebook\Entities\AccessToken;
+// use Facebook\Entities\SignedRequest;
 
-use Facebook\FacebookSession;
-use Facebook\FacebookRedirectLoginHelper;
-use Facebook\FacebookSignedRequestFromInputHelper; // added in v4.0.9
-use Facebook\FacebookRequest;
-use Facebook\FacebookResponse;
-use Facebook\FacebookSDKException;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookOtherException;
-use Facebook\FacebookAuthorizationException;
-use Facebook\GraphObject;
-use Facebook\GraphSessionInfo;
+// use Facebook\FacebookSession;
+// use Facebook\FacebookRedirectLoginHelper;
+// use Facebook\FacebookSignedRequestFromInputHelper; // added in v4.0.9
+// use Facebook\FacebookRequest;
+// use Facebook\FacebookResponse;
+// use Facebook\FacebookSDKException;
+// use Facebook\FacebookRequestException;
+// use Facebook\FacebookOtherException;
+// use Facebook\FacebookAuthorizationException;
+// use Facebook\GraphObject;
+// use Facebook\GraphSessionInfo;
 
-// these two classes required for canvas and tab apps
-use Facebook\FacebookCanvasLoginHelper;
-use Facebook\FacebookPageTabHelper;
-$redirect = 'https://www.facebook.com/timelinelol/app_466277736881326';
+// // these two classes required for canvas and tab apps
+// use Facebook\FacebookCanvasLoginHelper;
+// use Facebook\FacebookPageTabHelper;
+// $redirect = 'https://www.facebook.com/timelinelol/app_466277736881326';
 
-FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookRedirectLoginHelper(  $redirect);
-$pageHelper = new FacebookPageTabHelper();
+// FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
+// $helper = new FacebookRedirectLoginHelper(  $redirect);
+// $pageHelper = new FacebookPageTabHelper();
 
-// get session from the page
-$session = $pageHelper->getSession();
+// // get session from the page
+// $session = $pageHelper->getSession();
 
-// see if we have a session
-if ( !isset( $session ) ) {
-  echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
+// // see if we have a session
+// if ( !isset( $session ) ) {
+//   echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
   
-} else {
+// } else {
   
-  // graph api request for user data
-  $request = new FacebookRequest( $session, 'GET', '/me' );
-  $response = $request->execute();
-  // get response
-  $graphObject = $response->getGraphObject()->asArray();
+//   // graph api request for user data
+//   $request = new FacebookRequest( $session, 'GET', '/me' );
+//   $response = $request->execute();
+//   // get response
+//   $graphObject = $response->getGraphObject()->asArray();
   
 
-// see if the viewer has liked the page
-if ( !$pageHelper->isLiked() ) {
-  echo '<h1>Please Like the page to continue</h1>';
-} else {
-// see if we have a session
-  if ( isset( $session ) ) {
+
+
+// // see if we have a session
+//   if ( isset( $session ) ) {
     
-    // show logged-in user id
-    echo 'User Id: ' . $pageHelper->getUserId();
+//     // show logged-in user id
+//     echo 'User Id: ' . $pageHelper->getUserId();
     
-    // graph api request for user data
-    $request = new FacebookRequest( $session, 'GET', '/me' );
-    $response = $request->execute();
-    // get response
-    $graphObject = $response->getGraphObject()->asArray();
+//     // graph api request for user data
+//     $request = new FacebookRequest( $session, 'GET', '/me' );
+//     $response = $request->execute();
+//     // get response
+//     $graphObject = $response->getGraphObject()->asArray();
     
-    // print profile data
-    echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+//     // print profile data
+//     echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
     
-    // print logout url, target = _top to break out of page frame
-    echo '<a href="' . $helper->getLogoutUrl( $session, 'http://sites.local/php-sdk-4.0/redirect.php' ) . '" target="_top">Logout</a>';
+//     // print logout url, target = _top to break out of page frame
+//     echo '<a href="' . $helper->getLogoutUrl( $session, 'http://sites.local/php-sdk-4.0/redirect.php' ) . '" target="_top">Logout</a>';
     
-  } else {
-    // show login url, target = _top to break out of page frame
-    echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
-  }
-}
+//   } else {
+//     // show login url, target = _top to break out of page frame
+//     echo '<a href="' . $helper->getLoginUrl( array( 'publish_actions' ) ) . '" target="_top">Login</a>';
+//   }
+
 
 ?>
 
@@ -168,7 +166,7 @@ if ( !$pageHelper->isLiked() ) {
     <script src="script/script.js"></script>
     <script src="script/ajax.js"></script>
      <?php include 'template/modal.php';
-    }
+    // }
     ?>
     </body>
 

@@ -51,23 +51,11 @@ $pageHelper = new FacebookPageTabHelper();
 // get session from the page
 $session = $pageHelper->getSession();
 
-// get page_id
-echo '<p>You are currently viewing page: '. $pageHelper->getPageId() . '</p>';
-
-// get like status - use for likegates
-echo '<p>You have '. ( $pageHelper->isLiked() ? 'LIKED' : 'NOT liked' ) . ' this page</p>';
-
-// get admin status
-echo '<p>You are '. ( $pageHelper->isAdmin() ? 'an ADMIN' : 'NOT an ADMIN' ) . '</p>';
-
 // see if we have a session
 if ( !isset( $session ) ) {
   echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
- 
   
 } else {
-  // show logged-in user id
-  echo 'User Id: ' . $pageHelper->getUserId();
   
   // graph api request for user data
   $request = new FacebookRequest( $session, 'GET', '/me' );
@@ -75,8 +63,7 @@ if ( !isset( $session ) ) {
   // get response
   $graphObject = $response->getGraphObject()->asArray();
   
-  // print profile data
-  echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+
 // see if the viewer has liked the page
 if ( !$pageHelper->isLiked() ) {
   echo '<h1>Please Like the page to continue</h1>';
@@ -102,7 +89,8 @@ if ( !$pageHelper->isLiked() ) {
   } else {
     // show login url, target = _top to break out of page frame
     echo '<a href="' . $helper->getLoginUrl( array( 'email', 'user_friends' ) ) . '" target="_top">Login</a>';
-  }}
+  }
+}
 
 ?>
 

@@ -18,33 +18,38 @@
 </head>
 <?php
 session_start();
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSession.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookCanvasLoginHelper.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequest.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookResponse.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookSDKException.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookRequestException.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/FacebookAuthorizationException.php' );
-require_once( 'facebook-php-sdk-v4-4.0-dev/src/Facebook/GraphObject.php' );
+require_once( 'facebook-php-sdk-v4-4.0-dev/autoload.php' );
+
+use Facebook\HttpClients\FacebookHttpable;
+use Facebook\HttpClients\FacebookCurl;
+use Facebook\HttpClients\FacebookCurlHttpClient;
+
+use Facebook\Entities\AccessToken;
+use Facebook\Entities\SignedRequest;
 
 use Facebook\FacebookSession;
-use Facebook\FacebookCanvasLoginHelper;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookSignedRequestFromInputHelper; // added in v4.0.9
 use Facebook\FacebookRequest;
 use Facebook\FacebookResponse;
 use Facebook\FacebookSDKException;
 use Facebook\FacebookRequestException;
+use Facebook\FacebookOtherException;
 use Facebook\FacebookAuthorizationException;
 use Facebook\GraphObject;
+use Facebook\GraphSessionInfo;
+
+// these two classes required for canvas and tab apps
+use Facebook\FacebookCanvasLoginHelper;
+use Facebook\FacebookPageTabHelper;
+
 
 FacebookSession::setDefaultApplication('466277736881326','427964af9cc9d9a2908f3dfd261ff1d0');
-$helper = new FacebookCanvasLoginHelper();
-try {
-  $session = $helper->getSession();
-} catch (FacebookRequestException $ex) {
-    // When Facebook returns an error
-} catch (\Exception $ex) {
-    // When validation fails or other local issues  
-}
+$helper = new FacebookCanvasLoginHelper("https://www.facebook.com/timelinelol/app_466277736881326");
+$pageHelper = new FacebookPageTabHelper();
+$session = $pageHelper->getSession();
+echo '<p>You are currently viewing page: '. $pageHelper->getPageId() . '</p>';
+
 
 if ( !isset( $session ) ) {
   
